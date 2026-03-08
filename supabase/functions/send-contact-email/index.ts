@@ -55,9 +55,49 @@ serve(async (req) => {
       );
     }
 
-    // Send notification email using Supabase's built-in email (via admin API)
-    // For now, we log the inquiry. Email sending can be configured with a provider.
-    console.log(`New contact inquiry from ${name} (${email}) - Service: ${service}`);
+    // Send notification email via Resend
+    const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+    if (RESEND_API_KEY) {
+      const emailRes = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${RESEND_API_KEY}`,
+        },
+        body: JSON.stringify({
+          from: "Contact Form <onboarding@resend.dev>",
+          to: ["isreallevis2@gmail.com"],
+          subject: `New Inquiry: ${service || "General"} — from ${name}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+              <h2 style="color: #facc15; background: #000; padding: 16px; border-radius: 8px; text-align: center;">
+                🔔 New Contact Inquiry
+              </h2>
+              <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; margin-top: 16px;">
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+                <p><strong>Service:</strong> ${service || "Not specified"}</p>
+                <hr style="border: none; border-top: 1px solid #ddd; margin: 16px 0;" />
+                <p><strong>Message:</strong></p>
+                <p style="white-space: pre-wrap;">${message}</p>
+              </div>
+              <p style="color: #888; font-size: 12px; margin-top: 16px; text-align: center;">
+                Sent from your portfolio contact form
+              </p>
+            </div>
+          `,
+        }),
+      });
+
+      if (!emailRes.ok) {
+        const errBody = await emailRes.text();
+        console.error("Resend error:", errBody);
+      } else {
+        console.log("Notification email sent successfully");
+      }
+    } else {
+      console.warn("RESEND_API_KEY not set — skipping email notification");
+    }
 
     return new Response(
       JSON.stringify({ success: true, message: "Inquiry submitted successfully" }),

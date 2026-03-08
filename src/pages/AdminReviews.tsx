@@ -15,29 +15,34 @@ type Review = {
   created_at: string;
 };
 
-const ADMIN_PASSWORD = "isreal-admin-2024";
+// Password is entered by user at login, validated server-side
 
 const AdminReviews = () => {
   const { toast } = useToast();
   const [authed, setAuthed] = useState(false);
-  const [password, setPassword] = useState("");
+  const [adminPassword, setAdminPassword] = useState("");
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setAuthed(true);
-    } else {
+    setLoading(true);
+    const { data, error } = await supabase.functions.invoke("admin-reviews", {
+      body: { action: "list", password: adminPassword },
+    });
+    setLoading(false);
+    if (error || data?.error) {
       toast({ title: "Incorrect password", variant: "destructive" });
+      return;
     }
+    setReviews(data?.reviews || []);
+    setAuthed(true);
   };
 
   const fetchReviews = async () => {
     setLoading(true);
-    // Use service role through edge function to read all reviews (including unapproved)
     const { data, error } = await supabase.functions.invoke("admin-reviews", {
-      body: { action: "list", password: ADMIN_PASSWORD },
+      body: { action: "list", password: adminPassword },
     });
     setLoading(false);
     if (error) {
@@ -49,7 +54,7 @@ const AdminReviews = () => {
 
   const updateReview = async (id: string, action: "approve" | "reject" | "delete") => {
     const { error } = await supabase.functions.invoke("admin-reviews", {
-      body: { action, id, password: ADMIN_PASSWORD },
+      body: { action, id, password: adminPassword },
     });
     if (error) {
       toast({ title: "Action failed", variant: "destructive" });
@@ -71,8 +76,8 @@ const AdminReviews = () => {
           <Input
             type="password"
             placeholder="Enter admin password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={adminPassword}
+            onChange={(e) => setAdminPassword(e.target.value)}
           />
           <Button type="submit" variant="hero" className="w-full">
             <LogIn size={16} /> Sign In

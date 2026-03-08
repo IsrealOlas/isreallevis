@@ -6,6 +6,7 @@ import {
   Youtube, ShoppingBag, Globe, TrendingUp, Video, Search,
   ArrowRight, Star, CheckCircle2
 } from "lucide-react";
+import isrealPortrait from "@/assets/isreal-portrait.png";
 
 const services = [
   { icon: Youtube, title: "YouTube Growth & SEO", desc: "Channel optimization, audience growth, and video SEO strategies." },

@@ -15,12 +15,12 @@ type Review = {
   created_at: string;
 };
 
-const ADMIN_PASSWORD = "isreal-admin-2024";
+// Password is entered by user at login, validated server-side
 
 const AdminReviews = () => {
   const { toast } = useToast();
   const [authed, setAuthed] = useState(false);
-  const [password, setPassword] = useState("");
+  const [adminPassword, setAdminPassword] = useState("");
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(false);
 

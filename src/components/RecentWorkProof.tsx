@@ -99,10 +99,19 @@ const RecentWorkProof = () => {
             <div className="p-5">
               <h3 className="font-heading font-semibold text-base mb-2">{item.title}</h3>
               <p className="text-xs text-muted-foreground mb-3 leading-relaxed">{item.description}</p>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mb-2">
                 <TrendingUp size={14} className="text-primary shrink-0" />
                 <span className="text-xs font-semibold text-primary">{item.result}</span>
               </div>
+              {item.badges && (
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {item.badges.map((badge) => (
+                    <span key={badge} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/15 text-primary">
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
         ))}

@@ -6,9 +6,16 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
+const TelegramIcon = ({ size = 18, className = "" }: { size?: number; className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-8.609 3.33c-2.068.8-4.133 1.598-5.724 2.21a405.15 405.15 0 0 1-2.849 1.09c-.42.147-.99.332-1.473.901-.728.855.075 1.644.357 1.898.35.317.728.517.94.613l3.437 1.326a.73.73 0 0 0 .233.04c.155 0 .301-.068.404-.187l8.5-9.597a.272.272 0 0 1 .397.004.272.272 0 0 1-.004.394l-7.63 8.572a.603.603 0 0 0-.078.763l3.38 5.55c.09.148.158.26.298.39.236.218.546.322.849.322a1.19 1.19 0 0 0 1.12-.817l4.293-15.207a2.16 2.16 0 0 0 .084-.618 1.267 1.267 0 0 0-.447-.968 1.457 1.457 0 0 0-.856-.232z"/>
+  </svg>
+);
+
 const contactLinks = [
   { icon: Twitter, label: "Twitter / X", value: "@isreal_levis", href: "https://x.com/isreal_levis" },
   { icon: Facebook, label: "Facebook", value: "Isreal Levis", href: "https://www.facebook.com/share/17Fv1cKbYY/" },
+  { icon: TelegramIcon, label: "Telegram", value: "Message me directly", href: "https://t.me/Isreal_Levis" },
   { icon: MessageCircle, label: "Discord", value: "Join Server", href: "https://discord.gg/7DeWtjxn" },
   { icon: Mail, label: "Email", value: "Send me an email", href: "mailto:cyberworldenterprise8@gmail.com" },
 ];

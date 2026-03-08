@@ -19,9 +19,14 @@ const services = [
 ];
 
 const testimonials = [
-  { name: "Sarah M.", role: "E-commerce Owner", text: "Isreal transformed our Shopify store. Revenue increased 340% in 3 months.", rating: 5 },
-  { name: "David K.", role: "YouTube Creator", text: "My channel went from 2K to 50K subscribers with Isreal's growth strategies.", rating: 5 },
-  { name: "Lisa T.", role: "Business Owner", text: "Our WordPress site now loads in under 2 seconds and ranks on page 1.", rating: 5 },
+  { name: "Sarah M.", role: "E-commerce Owner", platform: "Fiverr", text: "Isreal transformed our Shopify store. Revenue increased 340% in 3 months.", rating: 5 },
+  { name: "David K.", role: "YouTube Creator", platform: "Upwork", text: "My channel went from 2K to 50K subscribers with Isreal's growth strategies.", rating: 5 },
+  { name: "Lisa T.", role: "Business Owner", platform: "Discord", text: "Our WordPress site now loads in under 2 seconds and ranks on page 1.", rating: 5 },
+  { name: "JayTech_", role: "Content Creator", platform: "Fiverr", text: "Great experience working together. My YouTube channel analytics improved after the SEO optimization and video strategy. Highly recommend.", rating: 5 },
+  { name: "Amanda R.", role: "Freelancer", platform: "Upwork", text: "Delivered a clean and fast WordPress website. Communication was excellent and the project was completed quickly.", rating: 5 },
+  { name: "NightOwl#3291", role: "Community Member", platform: "Discord", text: "Helped me fix several bugs on my website and optimized the speed. Very professional and knowledgeable.", rating: 5 },
+  { name: "Marcus J.", role: "Store Owner", platform: "Fiverr", text: "My Shopify store was built exactly how I wanted. The design is modern and optimized for sales.", rating: 5 },
+  { name: "Elena V.", role: "Brand Manager", platform: "Upwork", text: "Excellent YouTube editing and channel optimization. My engagement and views increased after implementing the strategy.", rating: 5 },
 ];
 
 const projects = [

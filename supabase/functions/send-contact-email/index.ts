@@ -66,7 +66,7 @@ serve(async (req) => {
         },
         body: JSON.stringify({
           from: "Contact Form <onboarding@resend.dev>",
-          to: ["cyberworldenterprise8@gmail.com"],
+          to: ["isreallevis2@gmail.com"],
           subject: `New Inquiry: ${service || "General"} — from ${name}`,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">

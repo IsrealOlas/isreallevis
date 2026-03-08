@@ -1,9 +1,10 @@
 import Section from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Twitter, MessageCircle, Mail, Send, ArrowRight } from "lucide-react";
+import { Twitter, MessageCircle, Mail, Send, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const contactLinks = [
   { icon: Twitter, label: "Twitter / X", value: "@isreal_levis", href: "https://x.com/isreal_levis" },
@@ -14,11 +15,36 @@ const contactLinks = [
 const Contact = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", service: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({ title: "Message sent!", description: "I'll get back to you within 24 hours." });
-    setForm({ name: "", email: "", service: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke("send-contact-email", {
+        body: {
+          name: form.name.trim(),
+          email: form.email.trim(),
+          service: form.service,
+          message: form.message.trim(),
+        },
+      });
+
+      if (error) throw error;
+
+      toast({ title: "Message sent!", description: "I'll get back to you within 24 hours." });
+      setForm({ name: "", email: "", service: "", message: "" });
+    } catch (error) {
+      console.error("Contact form error:", error);
+      toast({
+        title: "Something went wrong",
+        description: "Please try again or email me directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -127,8 +153,12 @@ const Contact = () => {
                   placeholder="Tell me about your project..."
                 />
               </div>
-              <Button variant="hero" size="lg" type="submit" className="w-full">
-                Send Message <Send size={16} />
+              <Button variant="hero" size="lg" type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>Sending... <Loader2 size={16} className="animate-spin" /></>
+                ) : (
+                  <>Send Message <Send size={16} /></>
+                )}
               </Button>
             </div>
           </motion.form>

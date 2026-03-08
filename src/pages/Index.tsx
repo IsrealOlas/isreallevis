@@ -7,6 +7,7 @@ import {
   ArrowRight, Star, CheckCircle2
 } from "lucide-react";
 import isrealPortrait from "@/assets/isreal-portrait.png";
+import RecentWorkProof from "@/components/RecentWorkProof";
 
 const services = [
   { icon: Youtube, title: "YouTube Growth & SEO", desc: "Channel optimization, audience growth, and video SEO strategies." },
@@ -159,6 +160,9 @@ const Index = () => {
           </Link>
         </div>
       </Section>
+
+      {/* Recent Work Proof */}
+      <RecentWorkProof />
 
       {/* Testimonials */}
       <Section>

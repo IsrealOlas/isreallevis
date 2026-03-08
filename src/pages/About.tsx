@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import {
   Youtube, Video, ShoppingBag, TrendingUp, Globe, Bug, Megaphone, Search, Target
 } from "lucide-react";
+import isrealPhoto from "@/assets/isreal-about-photo.png";
 
 const skills = [
   { icon: Youtube, label: "YouTube Growth & SEO" },
@@ -20,17 +21,35 @@ const About = () => {
     <main className="pt-16">
       {/* Hero */}
       <Section className="hero-bg">
-        <div className="max-w-3xl">
-          <span className="text-sm font-medium text-primary uppercase tracking-wider">About Me</span>
-          <h1 className="font-heading text-4xl sm:text-5xl font-bold mt-2 mb-6">
-            I'm <span className="text-gradient">Isreal Levis</span>
-          </h1>
-          <p className="text-lg text-muted-foreground mb-4">
-            A digital entrepreneur passionate about helping businesses build powerful online presences. With over 5 years of experience across YouTube growth, Shopify development, WordPress design, and digital marketing, I've helped 50+ businesses scale their revenue through proven strategies.
-          </p>
-          <p className="text-muted-foreground">
-            From small startups to established brands, I bring the same dedication: understand the business, craft the right strategy, and deliver measurable results.
-          </p>
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="max-w-xl">
+            <span className="text-sm font-medium text-primary uppercase tracking-wider">About Me</span>
+            <h1 className="font-heading text-4xl sm:text-5xl font-bold mt-2 mb-6">
+              I'm <span className="text-gradient">Isreal Levis</span>
+            </h1>
+            <p className="text-lg text-muted-foreground mb-4">
+              Hi, I'm Isreal Levis, a digital expert passionate about helping businesses scale their online presence. I specialize in YouTube growth strategies, professional video editing, Shopify development, dropshipping solutions, WordPress website development, SEO optimization, and technical website fixes.
+            </p>
+            <p className="text-muted-foreground">
+              My goal is to help businesses grow faster with powerful digital solutions. From small startups to established brands, I bring the same dedication: understand the business, craft the right strategy, and deliver measurable results.
+            </p>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="flex justify-center"
+          >
+            <div className="relative">
+              <div className="absolute -inset-4 rounded-3xl bg-primary/10 blur-2xl" />
+              <img
+                src={isrealPhoto}
+                alt="Isreal Levis - Digital Growth Expert"
+                className="relative rounded-2xl w-full max-w-sm object-cover shadow-2xl border-2 border-border"
+              />
+            </div>
+          </motion.div>
         </div>
       </Section>
 

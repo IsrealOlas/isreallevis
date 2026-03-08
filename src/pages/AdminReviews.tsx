@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Star, CheckCircle2, XCircle, Trash2, LogIn } from "lucide-react";
+import { Star, CheckCircle2, XCircle, Trash2, LogIn, LogOut } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 type Review = {
@@ -15,37 +15,51 @@ type Review = {
   created_at: string;
 };
 
-// Password is entered by user at login, validated server-side
-
 const AdminReviews = () => {
   const { toast } = useToast();
   const [authed, setAuthed] = useState(false);
-  const [adminPassword, setAdminPassword] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+  const [adminToken, setAdminToken] = useState("");
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { data, error } = await supabase.functions.invoke("admin-reviews", {
-      body: { action: "list", password: adminPassword },
-    });
-    setLoading(false);
-    if (error || data?.error) {
-      toast({ title: "Incorrect password", variant: "destructive" });
-      return;
+    try {
+      const { data, error } = await supabase.functions.invoke("admin-reviews", {
+        body: { action: "login", password: passwordInput },
+      });
+      if (error || data?.error) {
+        toast({ title: data?.error || "Incorrect password", variant: "destructive" });
+        return;
+      }
+      setAdminToken(data.token);
+      setPasswordInput(""); // Clear password from memory
+      setAuthed(true);
+    } finally {
+      setLoading(false);
     }
-    setReviews(data?.reviews || []);
-    setAuthed(true);
+  };
+
+  const handleLogout = () => {
+    setAdminToken("");
+    setAuthed(false);
+    setReviews([]);
   };
 
   const fetchReviews = async () => {
     setLoading(true);
     const { data, error } = await supabase.functions.invoke("admin-reviews", {
-      body: { action: "list", password: adminPassword },
+      body: { action: "list", token: adminToken },
     });
     setLoading(false);
-    if (error) {
+    if (error || data?.error) {
+      if (data?.error === "Unauthorized") {
+        handleLogout();
+        toast({ title: "Session expired. Please log in again.", variant: "destructive" });
+        return;
+      }
       toast({ title: "Failed to load reviews", variant: "destructive" });
       return;
     }
@@ -53,10 +67,15 @@ const AdminReviews = () => {
   };
 
   const updateReview = async (id: string, action: "approve" | "reject" | "delete") => {
-    const { error } = await supabase.functions.invoke("admin-reviews", {
-      body: { action, id, password: adminPassword },
+    const { data, error } = await supabase.functions.invoke("admin-reviews", {
+      body: { action, id, token: adminToken },
     });
-    if (error) {
+    if (error || data?.error) {
+      if (data?.error === "Unauthorized") {
+        handleLogout();
+        toast({ title: "Session expired. Please log in again.", variant: "destructive" });
+        return;
+      }
       toast({ title: "Action failed", variant: "destructive" });
       return;
     }
@@ -65,7 +84,7 @@ const AdminReviews = () => {
   };
 
   useEffect(() => {
-    if (authed) fetchReviews();
+    if (authed && adminToken) fetchReviews();
   }, [authed]);
 
   if (!authed) {
@@ -76,11 +95,11 @@ const AdminReviews = () => {
           <Input
             type="password"
             placeholder="Enter admin password"
-            value={adminPassword}
-            onChange={(e) => setAdminPassword(e.target.value)}
+            value={passwordInput}
+            onChange={(e) => setPasswordInput(e.target.value)}
           />
-          <Button type="submit" variant="hero" className="w-full">
-            <LogIn size={16} /> Sign In
+          <Button type="submit" variant="hero" className="w-full" disabled={loading}>
+            <LogIn size={16} /> {loading ? "Signing in..." : "Sign In"}
           </Button>
         </form>
       </div>
@@ -90,7 +109,12 @@ const AdminReviews = () => {
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="container mx-auto max-w-4xl">
-        <h1 className="font-heading text-3xl font-bold mb-8">Review Moderation</h1>
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="font-heading text-3xl font-bold">Review Moderation</h1>
+          <Button variant="outline" size="sm" onClick={handleLogout}>
+            <LogOut size={14} /> Logout
+          </Button>
+        </div>
         {loading ? (
           <p className="text-muted-foreground">Loading...</p>
         ) : reviews.length === 0 ? (

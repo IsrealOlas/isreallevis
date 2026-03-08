@@ -1,0 +1,141 @@
+import Section from "@/components/Section";
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { Twitter, MessageCircle, Mail, Send, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+
+const contactLinks = [
+  { icon: Twitter, label: "Twitter / X", value: "@isreal_levis", href: "https://x.com/isreal_levis" },
+  { icon: MessageCircle, label: "Discord", value: "Join Server", href: "https://discord.gg/7DeWtjxn" },
+  { icon: Mail, label: "Email", value: "cyberworldenterprise8@gmail.com", href: "mailto:cyberworldenterprise8@gmail.com" },
+];
+
+const Contact = () => {
+  const { toast } = useToast();
+  const [form, setForm] = useState({ name: "", email: "", service: "", message: "" });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({ title: "Message sent!", description: "I'll get back to you within 24 hours." });
+    setForm({ name: "", email: "", service: "", message: "" });
+  };
+
+  return (
+    <main className="pt-16">
+      <Section className="hero-bg">
+        <div className="text-center max-w-3xl mx-auto">
+          <span className="text-sm font-medium text-primary uppercase tracking-wider">Contact</span>
+          <h1 className="font-heading text-4xl sm:text-5xl font-bold mt-2 mb-4">
+            Let's <span className="text-gradient">Grow Your Business</span>
+          </h1>
+          <p className="text-muted-foreground text-lg">
+            Ready to take your online presence to the next level? Get in touch.
+          </p>
+        </div>
+      </Section>
+
+      <Section>
+        <div className="grid md:grid-cols-[1fr_1.5fr] gap-10">
+          {/* Contact Info */}
+          <div>
+            <h2 className="font-heading text-2xl font-bold mb-6">Get In Touch</h2>
+            <div className="flex flex-col gap-4">
+              {contactLinks.map((c) => (
+                <a
+                  key={c.label}
+                  href={c.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/30 transition-all"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <c.icon size={18} className="text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium">{c.label}</p>
+                    <p className="text-xs text-muted-foreground">{c.value}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Form */}
+          <motion.form
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="p-6 sm:p-8 rounded-xl bg-card border border-border"
+          >
+            <h3 className="font-heading text-xl font-semibold mb-6">Quick Project Inquiry</h3>
+            <div className="grid gap-4">
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1.5">Name</label>
+                  <input
+                    type="text"
+                    required
+                    maxLength={100}
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    placeholder="Your name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1.5">Email</label>
+                  <input
+                    type="email"
+                    required
+                    maxLength={255}
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    placeholder="your@email.com"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1.5">Service Interested In</label>
+                <select
+                  value={form.service}
+                  onChange={(e) => setForm({ ...form, service: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                >
+                  <option value="">Select a service</option>
+                  <option>YouTube Growth & SEO</option>
+                  <option>Video Editing</option>
+                  <option>Shopify Development</option>
+                  <option>Dropshipping Setup</option>
+                  <option>WordPress Design</option>
+                  <option>WordPress Bug Fixing</option>
+                  <option>Digital Marketing</option>
+                  <option>SEO Optimization</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1.5">Message</label>
+                <textarea
+                  required
+                  maxLength={1000}
+                  rows={4}
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+                  placeholder="Tell me about your project..."
+                />
+              </div>
+              <Button variant="hero" size="lg" type="submit" className="w-full">
+                Send Message <Send size={16} />
+              </Button>
+            </div>
+          </motion.form>
+        </div>
+      </Section>
+    </main>
+  );
+};
+
+export default Contact;

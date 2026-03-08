@@ -90,6 +90,7 @@ export default {
         "slide-up": "slide-up 0.7s ease-out forwards",
         "scale-fade": "scale-fade 0.5s ease-out forwards",
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "spin-slow": "spin 12s linear infinite",
       },
     },
   },

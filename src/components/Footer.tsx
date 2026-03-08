@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Twitter, Mail, MessageCircle } from "lucide-react";
+import { Twitter, Mail, MessageCircle, Facebook } from "lucide-react";
 
 const Footer = () => {
   return (

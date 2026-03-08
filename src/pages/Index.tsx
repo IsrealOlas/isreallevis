@@ -8,6 +8,9 @@ import {
 } from "lucide-react";
 import isrealPortrait from "@/assets/isreal-portrait.png";
 import RecentWorkProof from "@/components/RecentWorkProof";
+import {
+  Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext
+} from "@/components/ui/carousel";
 
 const services = [
   { icon: Youtube, title: "YouTube Growth & SEO", desc: "Channel optimization, audience growth, and video SEO strategies." },

@@ -178,29 +178,41 @@ const Index = () => {
           <span className="text-sm font-medium text-primary uppercase tracking-wider">Testimonials</span>
           <h2 className="font-heading text-3xl sm:text-4xl font-bold mt-2">What Clients Say</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="p-6 rounded-xl bg-card border border-border"
-            >
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: t.rating }).map((_, j) => (
-                  <Star key={j} size={14} className="fill-primary text-primary" />
-                ))}
-              </div>
-              <p className="text-sm text-muted-foreground mb-4">"{t.text}"</p>
-              <div>
-                <p className="font-semibold text-sm">{t.name}</p>
-                <p className="text-xs text-muted-foreground">{t.role}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        <Carousel opts={{ align: "start", loop: true }} className="w-full max-w-5xl mx-auto">
+          <CarouselContent className="-ml-4">
+            {testimonials.map((t, i) => (
+              <CarouselItem key={i} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  className="p-6 rounded-xl bg-card border border-border h-full flex flex-col"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex gap-1">
+                      {Array.from({ length: t.rating }).map((_, j) => (
+                        <Star key={j} size={14} className="fill-primary text-primary" />
+                      ))}
+                    </div>
+                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                      t.platform === "Fiverr" ? "bg-green-500/10 text-green-600 dark:text-green-400" :
+                      t.platform === "Upwork" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" :
+                      "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400"
+                    }`}>{t.platform}</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4 flex-1">"{t.text}"</p>
+                  <div>
+                    <p className="font-semibold text-sm">{t.name}</p>
+                    <p className="text-xs text-muted-foreground">{t.role}</p>
+                  </div>
+                </motion.div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="-left-4 sm:-left-12" />
+          <CarouselNext className="-right-4 sm:-right-12" />
+        </Carousel>
       </Section>
 
       {/* CTA */}

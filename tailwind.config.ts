@@ -70,11 +70,26 @@ export default {
           from: { opacity: "0", transform: "translateY(20px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
+        "slide-up": {
+          from: { opacity: "0", transform: "translateY(40px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "scale-fade": {
+          from: { opacity: "0", transform: "scale(0.9)" },
+          to: { opacity: "1", transform: "scale(1)" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { boxShadow: "0 0 20px hsl(var(--primary) / 0.15)" },
+          "50%": { boxShadow: "0 0 40px hsl(var(--primary) / 0.3)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-up": "fade-up 0.6s ease-out forwards",
+        "slide-up": "slide-up 0.7s ease-out forwards",
+        "scale-fade": "scale-fade 0.5s ease-out forwards",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
       },
     },
   },

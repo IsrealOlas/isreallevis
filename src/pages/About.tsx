@@ -41,13 +41,16 @@ const About = () => {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="flex justify-center"
           >
-            <div className="relative">
+            <div className="relative flex flex-col items-center">
               <div className="absolute -inset-4 rounded-3xl bg-primary/10 blur-2xl" />
               <img
                 src={isrealPhoto}
                 alt="Isreal Levis - Digital Growth Expert"
                 className="relative rounded-2xl w-full max-w-sm object-cover shadow-2xl border-2 border-border"
               />
+              <span className="relative mt-4 inline-block bg-primary text-primary-foreground text-xs font-bold px-4 py-1.5 rounded-full shadow-md tracking-wide">
+                YouTube &amp; Website Expert
+              </span>
             </div>
           </motion.div>
         </div>

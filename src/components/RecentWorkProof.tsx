@@ -2,7 +2,7 @@ import Section from "@/components/Section";
 import { motion } from "framer-motion";
 import { TrendingUp } from "lucide-react";
 
-import proofYoutubeGrowth from "@/assets/proof-youtube-growth.jpg";
+import proofYoutubeGrowth from "@/assets/proof-youtube-analytics.jpg";
 import proofVideoEditing from "@/assets/proof-video-editing.jpg";
 import proofShopifyStore from "@/assets/proof-shopify-store.jpg";
 import proofDropshipping from "@/assets/proof-dropshipping.jpg";
@@ -15,8 +15,9 @@ const proofItems = [
   {
     image: proofYoutubeGrowth,
     title: "YouTube Channel Growth",
-    description: "Implemented YouTube SEO strategies, video optimization, and thumbnail improvements to increase channel reach and engagement.",
-    result: "2K → 85K subscribers in 6 months",
+    description: "Optimized a YouTube channel using advanced SEO strategies, video optimization, and audience targeting. The results helped the client increase subscribers, channel views, and revenue.",
+    result: "1.3M Views · +11.2K Subs · $5,131 Revenue",
+    badges: ["+ Subscribers", "+ Views", "+ Revenue"],
   },
   {
     image: proofVideoEditing,
@@ -98,10 +99,19 @@ const RecentWorkProof = () => {
             <div className="p-5">
               <h3 className="font-heading font-semibold text-base mb-2">{item.title}</h3>
               <p className="text-xs text-muted-foreground mb-3 leading-relaxed">{item.description}</p>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mb-2">
                 <TrendingUp size={14} className="text-primary shrink-0" />
                 <span className="text-xs font-semibold text-primary">{item.result}</span>
               </div>
+              {item.badges && (
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {item.badges.map((badge) => (
+                    <span key={badge} className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-primary/15 text-primary">
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
         ))}

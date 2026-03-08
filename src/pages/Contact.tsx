@@ -1,13 +1,14 @@
 import Section from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Twitter, MessageCircle, Mail, Send, Loader2 } from "lucide-react";
+import { Twitter, MessageCircle, Mail, Send, Loader2, Facebook } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const contactLinks = [
   { icon: Twitter, label: "Twitter / X", value: "@isreal_levis", href: "https://x.com/isreal_levis" },
+  { icon: Facebook, label: "Facebook", value: "Isreal Levis", href: "https://www.facebook.com/share/17Fv1cKbYY/" },
   { icon: MessageCircle, label: "Discord", value: "Join Server", href: "https://discord.gg/7DeWtjxn" },
   { icon: Mail, label: "Email", value: "cyberworldenterprise8@gmail.com", href: "mailto:cyberworldenterprise8@gmail.com" },
 ];

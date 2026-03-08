@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Twitter, Mail, MessageCircle } from "lucide-react";
+import { Twitter, Mail, MessageCircle, Facebook } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -16,6 +16,9 @@ const Footer = () => {
             <div className="flex gap-3 mt-4">
               <a href="https://x.com/isreal_levis" target="_blank" rel="noopener noreferrer" className="p-2 rounded-md bg-secondary text-muted-foreground hover:text-primary transition-colors">
                 <Twitter size={18} />
+              </a>
+              <a href="https://www.facebook.com/share/17Fv1cKbYY/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-md bg-secondary text-muted-foreground hover:text-primary transition-colors">
+                <Facebook size={18} />
               </a>
               <a href="https://discord.gg/7DeWtjxn" target="_blank" rel="noopener noreferrer" className="p-2 rounded-md bg-secondary text-muted-foreground hover:text-primary transition-colors">
                 <MessageCircle size={18} />

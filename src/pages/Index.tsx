@@ -6,6 +6,7 @@ import {
   Youtube, ShoppingBag, Globe, TrendingUp, Video, Search,
   ArrowRight, Star, CheckCircle2
 } from "lucide-react";
+import isrealPortrait from "@/assets/isreal-portrait.png";
 
 const services = [
   { icon: Youtube, title: "YouTube Growth & SEO", desc: "Channel optimization, audience growth, and video SEO strategies." },
@@ -34,7 +35,7 @@ const Index = () => {
       {/* Hero */}
       <section className="hero-bg min-h-screen flex items-center pt-16">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -62,20 +63,31 @@ const Index = () => {
                   </Button>
                 </Link>
               </div>
+
+              <div className="flex flex-wrap gap-8 mt-14 text-sm text-muted-foreground">
+                {["150+ Projects Delivered", "50+ Happy Clients", "5+ Years Experience"].map((stat) => (
+                  <div key={stat} className="flex items-center gap-2">
+                    <CheckCircle2 size={16} className="text-primary" />
+                    <span>{stat}</span>
+                  </div>
+                ))}
+              </div>
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-              className="flex flex-wrap gap-8 mt-14 text-sm text-muted-foreground"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="hidden lg:flex justify-center"
             >
-              {["150+ Projects Delivered", "50+ Happy Clients", "5+ Years Experience"].map((stat) => (
-                <div key={stat} className="flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-primary" />
-                  <span>{stat}</span>
-                </div>
-              ))}
+              <div className="relative">
+                <div className="absolute -inset-4 rounded-3xl bg-primary/10 blur-2xl" />
+                <img
+                  src={isrealPortrait}
+                  alt="Isreal Levis - Digital Growth Expert"
+                  className="relative rounded-2xl w-full max-w-md object-cover shadow-2xl border-2 border-border"
+                />
+              </div>
             </motion.div>
           </div>
         </div>

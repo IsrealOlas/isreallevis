@@ -410,11 +410,7 @@ const Index = () => {
           transition={{ duration: 0.6 }}
           className="text-center max-w-2xl mx-auto relative"
         >
-          <motion.div
-            className="absolute -inset-16 rounded-3xl bg-primary/5 blur-3xl"
-            animate={{ opacity: [0.3, 0.6, 0.3], scale: [0.95, 1.05, 0.95] }}
-            transition={{ duration: 5, repeat: Infinity }}
-          />
+          <div className="absolute -inset-16 rounded-3xl bg-primary/5 blur-3xl floating" />
           <div className="relative z-10">
             <motion.div
               initial={{ scale: 0 }}

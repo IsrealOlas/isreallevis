@@ -203,10 +203,8 @@ const About = () => {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto text-center relative"
         >
-          <motion.div
-            className="absolute -inset-16 rounded-3xl bg-primary/5 blur-3xl"
-            animate={{ opacity: [0.3, 0.6, 0.3] }}
-            transition={{ duration: 5, repeat: Infinity }}
+          <div
+            className="absolute -inset-16 rounded-3xl bg-primary/5 blur-3xl floating"
           />
           <div className="relative z-10">
             <motion.div

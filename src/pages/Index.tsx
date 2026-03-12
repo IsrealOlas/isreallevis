@@ -208,6 +208,11 @@ const Index = () => {
                   src={isrealPortrait}
                   alt="Isreal Levis - Digital Growth Expert"
                   className="relative rounded-2xl w-full max-w-md object-cover shadow-2xl border-2 border-primary/20"
+                  width={400}
+                  height={500}
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
                 />
                 {/* Floating badge */}
                 <motion.div

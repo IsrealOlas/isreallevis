@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Section from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import { TrendingUp, ArrowRight, Sparkles, Youtube, ShoppingBag, Globe, Video, Search } from "lucide-react";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 
 const categories = ["All", "YouTube", "Shopify", "WordPress", "Video Editing", "SEO"];
 

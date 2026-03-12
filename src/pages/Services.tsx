@@ -169,10 +169,15 @@ const Services = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="flex md:items-end relative z-10">
+                  <div className="flex flex-wrap md:items-end gap-2 relative z-10">
                     <Link to="/contact">
                       <Button variant="hero" size="sm" className="group/btn">
                         Start This Service <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                    <Link to={`/portfolio?category=${s.portfolioCategory}`}>
+                      <Button variant="heroOutline" size="sm" className="group/btn">
+                        View Recent Job Done <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
                       </Button>
                     </Link>
                   </div>

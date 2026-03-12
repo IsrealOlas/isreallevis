@@ -99,6 +99,10 @@ const About = () => {
                 src={isrealPhoto}
                 alt="Isreal Levis - Digital Growth Expert"
                 className="relative rounded-2xl w-full max-w-sm object-cover shadow-2xl border-2 border-primary/20"
+                width={384}
+                height={480}
+                loading="eager"
+                decoding="async"
               />
               <motion.span
                 initial={{ opacity: 0, y: 10 }}
@@ -199,10 +203,8 @@ const About = () => {
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto text-center relative"
         >
-          <motion.div
-            className="absolute -inset-16 rounded-3xl bg-primary/5 blur-3xl"
-            animate={{ opacity: [0.3, 0.6, 0.3] }}
-            transition={{ duration: 5, repeat: Infinity }}
+          <div
+            className="absolute -inset-16 rounded-3xl bg-primary/5 blur-3xl floating"
           />
           <div className="relative z-10">
             <motion.div

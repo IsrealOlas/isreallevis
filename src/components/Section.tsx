@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { ReactNode, forwardRef, memo } from "react";
 
 interface SectionProps {
   children: ReactNode;
@@ -7,17 +7,20 @@ interface SectionProps {
   id?: string;
 }
 
-const Section = ({ children, className = "", id }: SectionProps) => (
+const Section = memo(forwardRef<HTMLElement, SectionProps>(({ children, className = "", id }, ref) => (
   <motion.section
+    ref={ref}
     id={id}
-    initial={{ opacity: 0, y: 30 }}
+    initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-80px" }}
-    transition={{ duration: 0.5, ease: "easeOut" }}
+    viewport={{ once: true, margin: "-60px" }}
+    transition={{ duration: 0.4, ease: "easeOut" }}
     className={`section-padding ${className}`}
   >
     <div className="container mx-auto">{children}</div>
   </motion.section>
-);
+)));
+
+Section.displayName = "Section";
 
 export default Section;

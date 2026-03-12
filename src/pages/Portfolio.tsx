@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Section from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import { TrendingUp, ArrowRight, Sparkles, Youtube, ShoppingBag, Globe, Video, Search } from "lucide-react";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 
 const categories = ["All", "YouTube", "Shopify", "WordPress", "Video Editing", "SEO"];
 
@@ -112,7 +112,17 @@ const TiltCard = ({ children, className = "" }: { children: React.ReactNode; cla
 };
 
 const Portfolio = () => {
-  const [filter, setFilter] = useState("All");
+  const [searchParams] = useSearchParams();
+  const initialCategory = searchParams.get("category") || "All";
+  const [filter, setFilter] = useState(initialCategory);
+  
+  useEffect(() => {
+    const cat = searchParams.get("category");
+    if (cat && categories.includes(cat)) {
+      setFilter(cat);
+    }
+  }, [searchParams]);
+  
   const filtered = filter === "All" ? projects : projects.filter((p) => p.category === filter);
 
   return (

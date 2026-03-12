@@ -99,6 +99,10 @@ const About = () => {
                 src={isrealPhoto}
                 alt="Isreal Levis - Digital Growth Expert"
                 className="relative rounded-2xl w-full max-w-sm object-cover shadow-2xl border-2 border-primary/20"
+                width={384}
+                height={480}
+                loading="eager"
+                decoding="async"
               />
               <motion.span
                 initial={{ opacity: 0, y: 10 }}

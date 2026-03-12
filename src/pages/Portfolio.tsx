@@ -112,7 +112,17 @@ const TiltCard = ({ children, className = "" }: { children: React.ReactNode; cla
 };
 
 const Portfolio = () => {
-  const [filter, setFilter] = useState("All");
+  const [searchParams] = useSearchParams();
+  const initialCategory = searchParams.get("category") || "All";
+  const [filter, setFilter] = useState(initialCategory);
+  
+  useEffect(() => {
+    const cat = searchParams.get("category");
+    if (cat && categories.includes(cat)) {
+      setFilter(cat);
+    }
+  }, [searchParams]);
+  
   const filtered = filter === "All" ? projects : projects.filter((p) => p.category === filter);
 
   return (

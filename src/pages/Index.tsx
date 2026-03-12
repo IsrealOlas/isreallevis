@@ -124,9 +124,9 @@ const Index = () => {
         {/* Grid background - desktop only */}
         <div className="absolute inset-0 grid-bg opacity-50 hidden lg:block" />
         
-        {/* Mouse-following gradient - desktop only */}
+        {/* Mouse-following gradient - desktop only, GPU accelerated */}
         <motion.div
-          className="absolute w-[600px] h-[600px] rounded-full blur-[120px] pointer-events-none hidden lg:block"
+          className="absolute w-[600px] h-[600px] rounded-full blur-[120px] pointer-events-none hidden lg:block will-change-transform"
           style={{
             background: `radial-gradient(circle, hsl(var(--primary) / 0.08), transparent 70%)`,
             x: mouse.x - 300,
@@ -134,25 +134,15 @@ const Index = () => {
           }}
         />
 
-        {/* Decorative floating orbs */}
+        {/* Simplified decorative orbs - CSS only, no JS animation */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            className="absolute w-72 h-72 rounded-full bg-primary/5 blur-3xl blob"
+          <div
+            className="absolute w-72 h-72 rounded-full bg-primary/5 blur-3xl blob floating"
             style={{ top: "10%", right: "15%" }}
-            animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           />
-          <motion.div
-            className="absolute w-96 h-96 rounded-full bg-accent/5 blur-3xl blob"
-            style={{ bottom: "10%", left: "10%" }}
-            animate={{ y: [0, 15, 0], x: [0, -8, 0] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute w-48 h-48 rounded-full bg-primary/3 blur-2xl hidden lg:block"
-            style={{ top: "50%", left: "50%" }}
-            animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.5, 0.3] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          <div
+            className="absolute w-96 h-96 rounded-full bg-accent/5 blur-3xl blob floating"
+            style={{ bottom: "10%", left: "10%", animationDelay: "2s" }}
           />
         </div>
 

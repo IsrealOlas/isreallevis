@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ReactNode, memo } from "react";
+import { ReactNode, forwardRef, memo } from "react";
 
 interface SectionProps {
   children: ReactNode;
@@ -7,8 +7,9 @@ interface SectionProps {
   id?: string;
 }
 
-const Section = memo(({ children, className = "", id }: SectionProps) => (
+const Section = memo(forwardRef<HTMLElement, SectionProps>(({ children, className = "", id }, ref) => (
   <motion.section
+    ref={ref}
     id={id}
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -18,7 +19,7 @@ const Section = memo(({ children, className = "", id }: SectionProps) => (
   >
     <div className="container mx-auto">{children}</div>
   </motion.section>
-));
+)));
 
 Section.displayName = "Section";
 

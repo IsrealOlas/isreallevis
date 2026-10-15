@@ -71,6 +71,48 @@ export type Database = {
         }
         Relationships: []
       }
+      paystack_quotes: {
+        Row: {
+          amount_ngn: number
+          created_at: string
+          customer_email: string
+          customer_name: string
+          description: string
+          id: string
+          paid_at: string | null
+          paystack_reference: string | null
+          paystack_transaction_id: string | null
+          service: string
+          status: string
+        }
+        Insert: {
+          amount_ngn: number
+          created_at?: string
+          customer_email: string
+          customer_name: string
+          description: string
+          id?: string
+          paid_at?: string | null
+          paystack_reference?: string | null
+          paystack_transaction_id?: string | null
+          service: string
+          status?: string
+        }
+        Update: {
+          amount_ngn?: number
+          created_at?: string
+          customer_email?: string
+          customer_name?: string
+          description?: string
+          id?: string
+          paid_at?: string | null
+          paystack_reference?: string | null
+          paystack_transaction_id?: string | null
+          service?: string
+          status?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

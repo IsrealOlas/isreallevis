@@ -8,6 +8,13 @@
       "when": 1792023550957,
       "tag": "0000_create_paystack_quotes",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792023621772,
+      "tag": "0001_create_paystack_payment_attempts",
+      "breakpoints": true
     }
   ]
 }

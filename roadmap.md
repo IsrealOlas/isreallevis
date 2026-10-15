@@ -1,0 +1,4 @@
+- [ ] Add @Isreallevis Telegram destination across contact links and assistant contact guidance.
+- [ ] Finish Paystack quote creation, customer checkout, server verification, and payment administration.
+- [ ] Request the Paystack secret securely and verify the project supports the intended test/live setup.
+- [ ] Run focused payment rules tests and verify the payment pages render.

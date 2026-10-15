@@ -71,6 +71,89 @@ export type Database = {
         }
         Relationships: []
       }
+      paystack_payment_attempts: {
+        Row: {
+          amount_kobo: number
+          authorization_url: string
+          created_at: string
+          id: string
+          paid_at: string | null
+          quote_id: string
+          reference: string
+          status: string
+        }
+        Insert: {
+          amount_kobo: number
+          authorization_url: string
+          created_at?: string
+          id?: string
+          paid_at?: string | null
+          quote_id: string
+          reference: string
+          status?: string
+        }
+        Update: {
+          amount_kobo?: number
+          authorization_url?: string
+          created_at?: string
+          id?: string
+          paid_at?: string | null
+          quote_id?: string
+          reference?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "paystack_payment_attempts_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "paystack_quotes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      paystack_quotes: {
+        Row: {
+          amount_ngn: number
+          created_at: string
+          customer_email: string
+          customer_name: string
+          description: string
+          id: string
+          paid_at: string | null
+          paystack_reference: string | null
+          paystack_transaction_id: string | null
+          service: string
+          status: string
+        }
+        Insert: {
+          amount_ngn: number
+          created_at?: string
+          customer_email: string
+          customer_name: string
+          description: string
+          id?: string
+          paid_at?: string | null
+          paystack_reference?: string | null
+          paystack_transaction_id?: string | null
+          service: string
+          status?: string
+        }
+        Update: {
+          amount_ngn?: number
+          created_at?: string
+          customer_email?: string
+          customer_name?: string
+          description?: string
+          id?: string
+          paid_at?: string | null
+          paystack_reference?: string | null
+          paystack_transaction_id?: string | null
+          service?: string
+          status?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

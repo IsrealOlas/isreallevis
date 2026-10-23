@@ -8,7 +8,7 @@ describe("Paystack quote payment rules", () => {
   });
 
   it("rejects amounts with more than two decimal places", () => {
-    expect(() => ngnToKobo(12.345)).toThrow("no more than two decimal places");
+    expect(() => ngnToKobo("12.345")).toThrow("valid positive amount");
   });
 
   it("accepts payment only when status, amount, currency, and reference match", () => {

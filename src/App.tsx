@@ -16,6 +16,8 @@ const Contact = lazy(() => import("./pages/Contact"));
 const Blog = lazy(() => import("./pages/Blog"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AdminReviews = lazy(() => import("./pages/AdminReviews"));
+const AdminPayments = lazy(() => import("./pages/AdminPayments"));
+const PayQuote = lazy(() => import("./pages/PayQuote"));
 const AIChatWidget = lazy(() => import("@/components/AIChatWidget"));
 
 const queryClient = new QueryClient();
@@ -42,6 +44,8 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/admin/reviews" element={<AdminReviews />} />
+            <Route path="/admin/payments" element={<AdminPayments />} />
+            <Route path="/pay/:quoteId" element={<PayQuote />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

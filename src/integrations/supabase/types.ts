@@ -114,6 +114,7 @@ export type Database = {
       }
       paystack_quotes: {
         Row: {
+          amount_kobo: number | null
           amount_ngn: number
           created_at: string
           customer_email: string
@@ -127,6 +128,7 @@ export type Database = {
           status: string
         }
         Insert: {
+          amount_kobo?: number | null
           amount_ngn: number
           created_at?: string
           customer_email: string
@@ -140,6 +142,7 @@ export type Database = {
           status?: string
         }
         Update: {
+          amount_kobo?: number | null
           amount_ngn?: number
           created_at?: string
           customer_email?: string

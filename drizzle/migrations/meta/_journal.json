@@ -15,6 +15,13 @@
       "when": 1792023621772,
       "tag": "0001_create_paystack_payment_attempts",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792755498294,
+      "tag": "0002_quote_amount_in_kobo",
+      "breakpoints": true
     }
   ]
 }

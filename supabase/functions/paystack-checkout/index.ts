@@ -18,7 +18,7 @@ Deno.serve(async (req) => {
     if (!validUuid(body?.quoteId)) return json({ error: "This payment link is invalid." }, 400);
     const supabase = getAdminClient();
     const { data: quote, error } = await supabase.from("paystack_quotes")
-      .select("id, customer_name, service, description, amount_ngn, status")
+      .select("id, customer_name, customer_email, service, description, amount_ngn, status")
       .eq("id", body.quoteId).maybeSingle();
     if (error || !quote) return json({ error: "This payment link could not be found." }, 404);
 
@@ -35,6 +35,13 @@ Deno.serve(async (req) => {
 
     if (body.action !== "initialize") return json({ error: "Invalid action" }, 400);
     if (quote.status !== "pending") return json({ error: quote.status === "paid" ? "This quote has already been paid." : "This quote is no longer accepting payments." }, 409);
+    const { data: existingAttempt, error: existingAttemptError } = await supabase.from("paystack_payment_attempts")
+      .select("authorization_url")
+      .eq("quote_id", quote.id)
+      .eq("status", "pending")
+      .maybeSingle();
+    if (existingAttemptError) throw new Error("Checkout could not be prepared. Please try again.");
+    if (existingAttempt?.authorization_url) return json({ authorizationUrl: existingAttempt.authorization_url });
     const secret = getPaystackSecret();
     const reference = `quote_${quote.id.replaceAll("-", "")}_${crypto.randomUUID().replaceAll("-", "")}`;
     const amountKobo = Number(quote.amount_ngn) * 100;
@@ -44,7 +51,7 @@ Deno.serve(async (req) => {
       method: "POST",
       headers: { Authorization: `Bearer ${secret}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        email: (await supabase.from("paystack_quotes").select("customer_email").eq("id", quote.id).single()).data?.customer_email,
+        email: quote.customer_email,
         amount: amountKobo,
         currency: "NGN",
         reference,

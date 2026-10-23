@@ -26,7 +26,7 @@ const Footer = () => {
               <a href="https://www.facebook.com/share/17Fv1cKbYY/" target="_blank" rel="noopener noreferrer" className="p-2 rounded-md bg-secondary text-muted-foreground hover:text-primary transition-colors">
                 <Facebook size={18} />
               </a>
-              <a href="https://t.me/Isreal_Levis" target="_blank" rel="noopener noreferrer" className="p-2 rounded-md bg-secondary text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://t.me/Isreallevis" target="_blank" rel="noopener noreferrer" aria-label="Telegram @Isreallevis" className="p-2 rounded-md bg-secondary text-muted-foreground hover:text-primary transition-colors">
                 <TelegramIcon size={18} />
               </a>
               <a href="https://discord.gg/7DeWtjxn" target="_blank" rel="noopener noreferrer" className="p-2 rounded-md bg-secondary text-muted-foreground hover:text-primary transition-colors">

@@ -14,7 +14,7 @@ type Quote = {
   customer_email: string;
   service: string;
   description: string;
-  amount_kobo: number;
+  amount_ngn: number;
   status: "pending" | "paid" | "cancelled";
   created_at: string;
 };
@@ -164,7 +164,7 @@ const AdminPayments = () => {
                 {quotes.map((quote) => {
                   const link = `${window.location.origin}/pay/${quote.id}`;
                   return <Card key={quote.id} className="border-border bg-card"><CardContent className="flex flex-wrap items-center justify-between gap-4 p-4">
-                    <div className="min-w-0"><p className="truncate font-semibold">{quote.customer_name} · {quote.service}</p><p className="mt-1 text-sm text-muted-foreground">{money(quote.amount_kobo)} · {new Date(quote.created_at).toLocaleDateString("en-NG")}</p><span className="mt-2 inline-block text-xs uppercase text-primary">{quote.status}</span></div>
+                    <div className="min-w-0"><p className="truncate font-semibold">{quote.customer_name} · {quote.service}</p><p className="mt-1 text-sm text-muted-foreground">{money(quote.amount_ngn * 100)} · {new Date(quote.created_at).toLocaleDateString("en-NG")}</p><span className="mt-2 inline-block text-xs uppercase text-primary">{quote.status}</span></div>
                     <div className="flex gap-2"><Button variant="outline" size="icon" aria-label="Copy customer payment link" onClick={() => void copyLink(link)}><Copy /></Button><Button asChild variant="ghost" size="icon" aria-label="Open customer payment page"><a href={link} target="_blank" rel="noreferrer"><ExternalLink /></a></Button></div>
                   </CardContent></Card>;
                 })}

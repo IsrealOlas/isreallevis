@@ -26,7 +26,7 @@ Isreal specializes in:
 Direct visitors to the Contact page on this website, or share these contact options:
 - **Twitter/X**: https://x.com/isreal_levis
 - **Discord**: https://discord.gg/7DeWtjxn
-- **Telegram**: https://t.me/Isreal_Levis
+- **Telegram**: https://t.me/Isreallevis
 - **Facebook**: https://www.facebook.com/share/17Fv1cKbYY/
 - **Email**: cyberworldenterprise8@gmail.com
 

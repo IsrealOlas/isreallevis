@@ -15,7 +15,7 @@ const TelegramIcon = ({ size = 18, className = "" }: { size?: number; className?
 const contactLinks = [
   { icon: Twitter, label: "Twitter / X", value: "@isreal_levis", href: "https://x.com/isreal_levis" },
   { icon: Facebook, label: "Facebook", value: "Isreal Levis", href: "https://www.facebook.com/share/17Fv1cKbYY/" },
-  { icon: TelegramIcon, label: "Telegram", value: "Message me directly", href: "https://t.me/Isreal_Levis" },
+  { icon: TelegramIcon, label: "Telegram", value: "@Isreallevis", href: "https://t.me/Isreallevis" },
   { icon: MessageCircle, label: "Discord", value: "Join Server", href: "https://discord.gg/7DeWtjxn" },
   { icon: Mail, label: "Email", value: "Send me an email", href: "mailto:cyberworldenterprise8@gmail.com" },
 ];

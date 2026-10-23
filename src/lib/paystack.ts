@@ -1,14 +1,16 @@
-export function ngnToKobo(amount: number): number {
-  if (!Number.isFinite(amount) || amount <= 0 || !Number.isSafeInteger(Math.round(amount * 100))) {
+export function ngnToKobo(amount: number | string): number {
+  const raw = typeof amount === "number" ? amount.toString() : amount.trim();
+  if (!/^\d+(?:\.\d{1,2})?$/.test(raw)) {
     throw new Error("Enter a valid positive amount in NGN.");
   }
 
-  const scaled = amount * 100;
-  if (!Number.isInteger(scaled)) {
-    throw new Error("NGN amounts can have no more than two decimal places.");
+  const [whole, fraction = ""] = raw.split(".");
+  const scaled = BigInt(whole) * 100n + BigInt(fraction.padEnd(2, "0"));
+  if (scaled <= 0n || scaled > BigInt(Number.MAX_SAFE_INTEGER)) {
+    throw new Error("Enter a valid positive amount in NGN.");
   }
 
-  return scaled;
+  return Number(scaled);
 }
 
 export function matchesPaystackPayment(

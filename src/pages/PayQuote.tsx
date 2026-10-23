@@ -10,7 +10,7 @@ type Quote = {
   customer_name: string;
   service: string;
   description: string;
-  amount_ngn: number;
+  amount_kobo: number;
   status: "pending" | "paid" | "cancelled";
 };
 
@@ -120,7 +120,7 @@ const PayQuote = () => {
                 </div>
                 <div className="flex items-end justify-between border-t border-border pt-4">
                   <span className="text-sm text-muted-foreground">Total</span>
-                  <span className="font-heading text-2xl font-bold">{formatNgn(quote.amount_ngn)}</span>
+                  <span className="font-heading text-2xl font-bold">{formatNgn(quote.amount_kobo / 100)}</span>
                 </div>
                 {quote.status === "paid" ? (
                   <div className="flex items-center gap-2 border-t border-border pt-4 font-medium text-primary"><CheckCircle2 className="h-5 w-5" /> Payment confirmed</div>

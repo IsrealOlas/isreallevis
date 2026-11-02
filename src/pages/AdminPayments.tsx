@@ -32,6 +32,7 @@ const AdminPayments = () => {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [createdLink, setCreatedLink] = useState("");
+  const [paymentReady, setPaymentReady] = useState<boolean | null>(null);
 
   const callAdmin = async (body: Record<string, unknown>) => {
     const { data, error } = await supabase.functions.invoke("admin-payments", { body });
@@ -44,6 +45,7 @@ const AdminPayments = () => {
     try {
       const data = await callAdmin({ action: "list", token: adminToken });
       setQuotes((data.quotes || []) as Quote[]);
+      setPaymentReady(Boolean(data.paymentReady));
     } catch (error) {
       setToken("");
       toast({ title: "Could not load quotes", description: error instanceof Error ? error.message : "Please sign in again.", variant: "destructive" });
@@ -136,6 +138,7 @@ const AdminPayments = () => {
             <Button variant="outline" onClick={logout}><LogOut /> Sign out</Button>
           </div>
         </div>
+        {paymentReady === false && <p role="status" className="border-l-2 border-primary pl-3 text-sm text-muted-foreground">Quotes can be prepared now, but checkout is not connected until Paystack is securely configured.</p>}
 
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
           <Card className="border-border bg-card">

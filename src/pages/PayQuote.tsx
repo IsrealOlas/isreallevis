@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { CheckCircle2, Loader2, LockKeyhole, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -28,6 +28,7 @@ const PayQuote = () => {
   const [paying, setPaying] = useState(false);
   const [message, setMessage] = useState("");
   const reference = searchParams.get("reference");
+  const verificationStarted = useRef<string | null>(null);
 
   const loadQuote = useCallback(async () => {
     if (!quoteId) {
@@ -55,7 +56,8 @@ const PayQuote = () => {
   }, [loadQuote]);
 
   useEffect(() => {
-    if (!reference || !quoteId) return;
+    if (!reference || !quoteId || verificationStarted.current === reference) return;
+    verificationStarted.current = reference;
     let active = true;
     setPaying(true);
     supabase.functions.invoke("paystack-verify", { body: { reference } })

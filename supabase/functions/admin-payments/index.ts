@@ -41,7 +41,7 @@ Deno.serve(async (req) => {
     const supabase = getAdminClient();
 
     if (action === "list") {
-      const { data, error } = await supabase.from("paystack_quotes").select("id, customer_name, customer_email, service, description, amount_ngn, status, created_at, paystack_reference").order("created_at", { ascending: false }).limit(100);
+      const { data, error } = await supabase.from("paystack_quotes").select("id, customer_name, customer_email, service, description, amount_ngn, amount_kobo, status, created_at, paystack_reference").order("created_at", { ascending: false }).limit(100);
       if (error) throw error;
       return json({ quotes: data, paymentReady: Boolean(Deno.env.get("PAYSTACK_SECRET_KEY")) });
     }
@@ -54,15 +54,15 @@ Deno.serve(async (req) => {
       const service = typeof quote.service === "string" ? quote.service.trim() : "";
       const description = typeof quote.description === "string" ? quote.description.trim() : "";
       const amountKobo = quote.amountKobo;
-      if (customerName.length < 1 || customerName.length > 100 || !validEmail(customerEmail) || customerEmail.length > 255 || service.length < 1 || service.length > 160 || description.length < 1 || description.length > 2000 || !Number.isSafeInteger(amountKobo) || amountKobo <= 0 || amountKobo % 100 !== 0 || amountKobo > 10000000000000) {
-        return json({ error: "Check the customer details and enter a whole NGN amount greater than zero." }, 400);
+      if (customerName.length < 1 || customerName.length > 100 || !validEmail(customerEmail) || customerEmail.length > 255 || service.length < 1 || service.length > 160 || description.length < 1 || description.length > 2000 || !Number.isSafeInteger(amountKobo) || amountKobo <= 0 || amountKobo > 10000000000000) {
+        return json({ error: "Check the customer details and enter a valid NGN amount greater than zero." }, 400);
       }
       const { data, error } = await supabase.from("paystack_quotes").insert({
         customer_name: customerName,
         customer_email: customerEmail,
         service,
         description,
-        amount_ngn: amountKobo / 100,
+        amount_ngn: Math.floor(amountKobo / 100),
         amount_kobo: amountKobo,
       }).select("id, customer_name, customer_email, service, description, amount_ngn, amount_kobo, status, created_at").single();
       if (error) throw error;

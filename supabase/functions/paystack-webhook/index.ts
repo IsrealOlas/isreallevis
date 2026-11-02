@@ -35,6 +35,7 @@ Deno.serve(async (req) => {
     if (error || !attempt) return json({ error: "Payment reference not found" }, 404);
     const transaction = await verifyPaystackTransaction(secret, reference);
     if (!matchesPayment(transaction, { amountKobo: Number(attempt.amount_kobo), reference })) return json({ error: "Payment details do not match" }, 400);
+    if (attempt.status === "success") return json({ received: true, duplicate: true });
     await markPaymentPaid(reference, transaction.id);
     return json({ received: true });
   } catch (error) {

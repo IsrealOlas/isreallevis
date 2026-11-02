@@ -17,10 +17,18 @@ Deno.serve(async (req) => {
       .select("id, quote_id, amount_kobo, status")
       .eq("reference", reference).maybeSingle();
     if (error || !attempt) return json({ error: "This payment reference was not found." }, 404);
-    if (attempt.status === "success") return json({ paid: true, quoteId: attempt.quote_id });
+    if (attempt.status === "success") {
+      const quoteId = await markPaymentPaid(reference);
+      return json({ paid: true, quoteId });
+    }
 
     const transaction = await verifyPaystackTransaction(getPaystackSecret(), reference);
-    if (!matchesPayment(transaction, { amountKobo: Number(attempt.amount_kobo), reference })) return json({ paid: false });
+    if (!matchesPayment(transaction, { amountKobo: Number(attempt.amount_kobo), reference })) {
+      if (transaction.status === "failed" || transaction.status === "abandoned") {
+        await supabase.from("paystack_payment_attempts").update({ status: "failed" }).eq("id", attempt.id).eq("status", "pending");
+      }
+      return json({ paid: false });
+    }
     const quoteId = await markPaymentPaid(reference, transaction.id);
     return json({ paid: true, quoteId });
   } catch (error) {

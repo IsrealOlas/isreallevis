@@ -63,7 +63,8 @@ Deno.serve(async (req) => {
         service,
         description,
         amount_ngn: amountKobo / 100,
-      }).select("id, customer_name, customer_email, service, description, amount_ngn, status, created_at").single();
+        amount_kobo: amountKobo,
+      }).select("id, customer_name, customer_email, service, description, amount_ngn, amount_kobo, status, created_at").single();
       if (error) throw error;
       return json({ quote: data }, 201);
     }

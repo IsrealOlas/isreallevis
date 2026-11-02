@@ -18,7 +18,7 @@ Deno.serve(async (req) => {
     if (!validUuid(body?.quoteId)) return json({ error: "This payment link is invalid." }, 400);
     const supabase = getAdminClient();
     const { data: quote, error } = await supabase.from("paystack_quotes")
-      .select("id, customer_name, customer_email, service, description, amount_ngn, status")
+      .select("id, customer_name, customer_email, service, description, amount_ngn, amount_kobo, status")
       .eq("id", body.quoteId).maybeSingle();
     if (error || !quote) return json({ error: "This payment link could not be found." }, 404);
 
@@ -28,7 +28,7 @@ Deno.serve(async (req) => {
         customer_name: quote.customer_name,
         service: quote.service,
         description: quote.description,
-        amount_kobo: Number(quote.amount_ngn) * 100,
+        amount_kobo: Number(quote.amount_kobo ?? Number(quote.amount_ngn) * 100),
         status: quote.status,
       } });
     }
@@ -36,15 +36,24 @@ Deno.serve(async (req) => {
     if (body.action !== "initialize") return json({ error: "Invalid action" }, 400);
     if (quote.status !== "pending") return json({ error: quote.status === "paid" ? "This quote has already been paid." : "This quote is no longer accepting payments." }, 409);
     const { data: existingAttempt, error: existingAttemptError } = await supabase.from("paystack_payment_attempts")
-      .select("authorization_url")
+      .select("authorization_url, created_at")
       .eq("quote_id", quote.id)
       .eq("status", "pending")
+      .order("created_at", { ascending: false })
+      .limit(1)
       .maybeSingle();
     if (existingAttemptError) throw new Error("Checkout could not be prepared. Please try again.");
-    if (existingAttempt?.authorization_url) return json({ authorizationUrl: existingAttempt.authorization_url });
+    if (existingAttempt?.authorization_url && Date.now() - new Date(existingAttempt.created_at).getTime() < 30 * 60 * 1000) return json({ authorizationUrl: existingAttempt.authorization_url });
+    if (existingAttempt) {
+      const { error: expireError } = await supabase.from("paystack_payment_attempts")
+        .update({ status: "failed" })
+        .eq("quote_id", quote.id)
+        .eq("status", "pending");
+      if (expireError) throw new Error("Checkout could not be prepared. Please try again.");
+    }
     const secret = getPaystackSecret();
     const reference = `quote_${quote.id.replaceAll("-", "")}_${crypto.randomUUID().replaceAll("-", "")}`;
-    const amountKobo = Number(quote.amount_ngn) * 100;
+    const amountKobo = Number(quote.amount_kobo ?? Number(quote.amount_ngn) * 100);
     if (!Number.isSafeInteger(amountKobo) || amountKobo <= 0) return json({ error: "This quote has an invalid amount." }, 400);
     const origin = safeOrigin(req.headers.get("origin"));
     const response = await fetch("https://api.paystack.co/transaction/initialize", {

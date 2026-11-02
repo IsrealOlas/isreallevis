@@ -20,7 +20,12 @@ Deno.serve(async (req) => {
     if (attempt.status === "success") return json({ paid: true, quoteId: attempt.quote_id });
 
     const transaction = await verifyPaystackTransaction(getPaystackSecret(), reference);
-    if (!matchesPayment(transaction, { amountKobo: Number(attempt.amount_kobo), reference })) return json({ paid: false });
+    if (!matchesPayment(transaction, { amountKobo: Number(attempt.amount_kobo), reference })) {
+      if (transaction.status === "failed" || transaction.status === "abandoned") {
+        await supabase.from("paystack_payment_attempts").update({ status: "failed" }).eq("id", attempt.id).eq("status", "pending");
+      }
+      return json({ paid: false });
+    }
     const quoteId = await markPaymentPaid(reference, transaction.id);
     return json({ paid: true, quoteId });
   } catch (error) {

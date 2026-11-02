@@ -41,7 +41,7 @@ Deno.serve(async (req) => {
     const supabase = getAdminClient();
 
     if (action === "list") {
-      const { data, error } = await supabase.from("paystack_quotes").select("id, customer_name, customer_email, service, description, amount_ngn, status, created_at, paystack_reference").order("created_at", { ascending: false }).limit(100);
+      const { data, error } = await supabase.from("paystack_quotes").select("id, customer_name, customer_email, service, description, amount_ngn, amount_kobo, status, created_at, paystack_reference").order("created_at", { ascending: false }).limit(100);
       if (error) throw error;
       return json({ quotes: data, paymentReady: Boolean(Deno.env.get("PAYSTACK_SECRET_KEY")) });
     }

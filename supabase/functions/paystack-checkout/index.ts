@@ -43,14 +43,7 @@ Deno.serve(async (req) => {
       .limit(1)
       .maybeSingle();
     if (existingAttemptError) throw new Error("Checkout could not be prepared. Please try again.");
-    if (existingAttempt?.authorization_url && Date.now() - new Date(existingAttempt.created_at).getTime() < 30 * 60 * 1000) return json({ authorizationUrl: existingAttempt.authorization_url });
-    if (existingAttempt) {
-      const { error: expireError } = await supabase.from("paystack_payment_attempts")
-        .update({ status: "failed" })
-        .eq("quote_id", quote.id)
-        .eq("status", "pending");
-      if (expireError) throw new Error("Checkout could not be prepared. Please try again.");
-    }
+    if (existingAttempt?.authorization_url) return json({ authorizationUrl: existingAttempt.authorization_url });
     const secret = getPaystackSecret();
     const reference = `quote_${quote.id.replaceAll("-", "")}_${crypto.randomUUID().replaceAll("-", "")}`;
     const amountKobo = Number(quote.amount_kobo ?? Number(quote.amount_ngn) * 100);

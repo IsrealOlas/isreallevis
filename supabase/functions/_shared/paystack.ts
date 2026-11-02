@@ -49,18 +49,18 @@ export async function markPaymentPaid(reference: string, transactionId?: number 
   if (attemptError || !attempt) throw new Error("Payment reference was not found.");
 
   const paidAt = new Date().toISOString();
+  const { error: quoteUpdateError } = await supabase
+    .from("paystack_quotes")
+    .update({ status: "paid", paid_at: paidAt, paystack_reference: reference, paystack_transaction_id: transactionId ? String(transactionId) : null })
+    .eq("id", attempt.quote_id)
+    .neq("status", "paid");
+  if (quoteUpdateError) throw new Error("Payment could not be recorded.");
+
   const { error: attemptUpdateError } = await supabase
     .from("paystack_payment_attempts")
     .update({ status: "success", paid_at: paidAt })
     .eq("id", attempt.id);
   if (attemptUpdateError) throw new Error("Payment could not be recorded.");
-
-  const { error: quoteUpdateError } = await supabase
-    .from("paystack_quotes")
-    .update({ status: "paid", paid_at: paidAt, paystack_reference: reference, paystack_transaction_id: transactionId ? String(transactionId) : null })
-    .eq("id", attempt.quote_id)
-    .eq("status", "pending");
-  if (quoteUpdateError) throw new Error("Payment could not be recorded.");
 
   return attempt.quote_id as string;
 }

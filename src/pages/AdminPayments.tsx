@@ -151,7 +151,7 @@ const AdminPayments = () => {
                 <Textarea required maxLength={2000} rows={4} placeholder="What is included in this quote?" value={form.description} onChange={(event) => setForm({ ...form, description: event.target.value })} />
                 <div>
                   <label htmlFor="quote-amount" className="mb-1.5 block text-sm font-medium">Total amount (NGN)</label>
-                  <Input id="quote-amount" required inputMode="numeric" pattern="[0-9]+" placeholder="e.g. 150000" value={form.amountNgn} onChange={(event) => setForm({ ...form, amountNgn: event.target.value })} />
+                  <Input id="quote-amount" required inputMode="decimal" pattern="[0-9]+(?:\.[0-9]{1,2})?" placeholder="e.g. 150000" value={form.amountNgn} onChange={(event) => setForm({ ...form, amountNgn: event.target.value })} />
                 </div>
                 <Button type="submit" variant="hero" className="w-full" disabled={saving}>
                   {saving ? <Loader2 className="animate-spin" /> : <Plus />} {saving ? "Creating link…" : "Create payment link"}

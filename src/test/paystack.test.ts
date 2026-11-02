@@ -5,6 +5,7 @@ describe("Paystack quote payment rules", () => {
   it("converts NGN to kobo exactly", () => {
     expect(ngnToKobo(1500)).toBe(150000);
     expect(ngnToKobo(1250.5)).toBe(125050);
+    expect(ngnToKobo("1234.56")).toBe(123456);
   });
 
   it("rejects amounts with more than two decimal places", () => {

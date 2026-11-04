@@ -1,4 +1,5 @@
 - [x] Update Telegram contact links and assistant contact guidance to @Isreallevis.
 - [x] Build protected quote management and server-verified Paystack checkout for NGN quotes.
 - [x] Save the Paystack key securely; keep the payment setup in test mode until live credentials are selected.
-- [ ] Run focused payment tests and verify the public payment and contact views render.
+- [x] Run payment rule tests and verify payment pages and the Telegram contact link render.
+- [ ] Complete a real Paystack test checkout end to end; no test transaction has been run yet.

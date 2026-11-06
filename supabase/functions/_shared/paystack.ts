@@ -9,8 +9,14 @@ export function getAdminClient() {
 
 export function getPaystackSecret() {
   const key = Deno.env.get("PAYSTACK_SECRET_KEY");
-  if (!key) throw new Error("Paystack is not connected yet. Please contact Isreal to arrange payment.");
+  if (!isPaystackTestKey(key)) {
+    throw new Error("Paystack test mode is not configured. Live payments remain disabled until test checkout is confirmed.");
+  }
   return key;
+}
+
+export function isPaystackTestKey(key: string | undefined): key is string {
+  return typeof key === "string" && /^sk_test_[A-Za-z0-9]+$/.test(key);
 }
 
 export function validUuid(value: unknown): value is string {

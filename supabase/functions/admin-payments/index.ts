@@ -1,6 +1,6 @@
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { createAdminToken, verifyAdminToken } from "../_shared/admin-token.ts";
-import { getAdminClient } from "../_shared/paystack.ts";
+import { getAdminClient, isPaystackTestKey } from "../_shared/paystack.ts";
 
 const attempts = new Map<string, { count: number; since: number }>();
 const maxAttempts = 5;
@@ -43,7 +43,7 @@ Deno.serve(async (req) => {
     if (action === "list") {
       const { data, error } = await supabase.from("paystack_quotes").select("id, customer_name, customer_email, service, description, amount_ngn, amount_kobo, status, created_at, paystack_reference").order("created_at", { ascending: false }).limit(100);
       if (error) throw error;
-      return json({ quotes: data, paymentReady: Boolean(Deno.env.get("PAYSTACK_SECRET_KEY")) });
+      return json({ quotes: data, paymentReady: isPaystackTestKey(Deno.env.get("PAYSTACK_SECRET_KEY")) });
     }
 
     if (action === "create") {

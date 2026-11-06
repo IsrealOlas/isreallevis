@@ -1,5 +1,8 @@
 - [x] Update Telegram contact links and assistant contact guidance to @Isreallevis.
 - [x] Build protected quote management and server-verified Paystack checkout for NGN quotes.
-- [x] Save the Paystack key securely; keep the payment setup in test mode until live credentials are selected.
-- [x] Run payment rule tests and verify payment pages and the Telegram contact link render.
-- [ ] Complete a real Paystack test checkout end to end; no test transaction has been run yet.
+- [ ] Verify the hidden Paystack secret is a test key; secret values are not available for inspection.
+- [x] Restrict payment initialization to Paystack test keys and deploy the payment functions.
+- [x] Run payment conversion, matching, test-key guard, and invalid-request checks; app build is clean.
+- [ ] Complete a real test-card checkout and server confirmation; requires admin login and a test transaction.
+- [ ] Build a WhatsApp lead assistant with approved pricing, booking, and owner handoff; requirements and WhatsApp connection are pending.
+- [ ] Adapt the homepage hero to the newly uploaded reference image while retaining the existing content and interface.

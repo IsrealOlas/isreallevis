@@ -4,3 +4,5 @@
 - [x] Restrict payment initialization to Paystack test keys and deploy the payment functions.
 - [x] Run payment conversion, matching, test-key guard, and invalid-request checks; app build is clean.
 - [ ] Complete a real test-card checkout and server confirmation; requires admin login and a test transaction.
+- [ ] Build a WhatsApp lead assistant with approved pricing, booking, and owner handoff; requirements and WhatsApp connection are pending.
+- [ ] Adapt the homepage hero to the newly uploaded reference image while retaining the existing content and interface.

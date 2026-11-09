@@ -6,12 +6,11 @@ import {
   Youtube, ShoppingBag, Globe, TrendingUp, Video, Search,
   ArrowRight, CheckCircle2, Sparkles, Zap, Star, Users, Briefcase, Clock
 } from "lucide-react";
-import isrealPortrait from "@/assets/isreal-portrait.png";
+import growthHero from "@/assets/isreal-growth-hero.jpg";
 import RecentWorkProof from "@/components/RecentWorkProof";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ReviewSubmissionForm from "@/components/ReviewSubmissionForm";
 import { useRef, useCallback } from "react";
-import { useMousePosition } from "@/hooks/use-mouse-position";
 import { useCounter } from "@/hooks/use-counter";
 
 const services = [
@@ -109,7 +108,6 @@ const trustedBy = ["YouTube Creators", "Shopify Stores", "WordPress Sites", "E-c
 
 const Index = () => {
   const heroRef = useRef<HTMLElement>(null);
-  const mouse = useMousePosition();
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"]
@@ -120,132 +118,62 @@ const Index = () => {
   return (
     <main>
       {/* Hero */}
-      <section ref={heroRef} className="hero-bg min-h-screen flex items-center pt-16 relative noise-overlay">
-        {/* Grid background - desktop only */}
-        <div className="absolute inset-0 grid-bg opacity-50 hidden lg:block" />
-        
-        {/* Mouse-following gradient - desktop only, GPU accelerated */}
-        <motion.div
-          className="absolute w-[600px] h-[600px] rounded-full blur-[120px] pointer-events-none hidden lg:block will-change-transform"
-          style={{
-            background: `radial-gradient(circle, hsl(var(--primary) / 0.08), transparent 70%)`,
-            x: mouse.x - 300,
-            y: mouse.y - 300,
-          }}
+      <section ref={heroRef} className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-background pt-16">
+        <img
+          src={growthHero}
+          alt="Isreal Levis in a digital workspace with analytics and creative tools"
+          className="absolute inset-0 h-full w-full object-cover object-[72%_center]"
+          width={1920}
+          height={1080}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-hero-scrim/60 via-hero-scrim/45 to-hero-scrim/80 md:bg-gradient-to-r md:from-hero-scrim/95 md:via-hero-scrim/75 md:to-hero-scrim/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-hero-scrim/55 via-transparent to-hero-scrim/20" />
+        <div className="absolute inset-0 hidden bg-[radial-gradient(ellipse_at_78%_45%,hsl(var(--primary)/0.10),transparent_45%)] md:block" />
 
-        {/* Simplified decorative orbs - CSS only, no JS animation */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div
-            className="absolute w-72 h-72 rounded-full bg-primary/5 blur-3xl blob floating"
-            style={{ top: "10%", right: "15%" }}
-          />
-          <div
-            className="absolute w-96 h-96 rounded-full bg-accent/5 blur-3xl blob floating"
-            style={{ bottom: "10%", left: "10%", animationDelay: "2s" }}
-          />
-        </div>
-
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-            >
+        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="container relative z-10 mx-auto px-4 py-24 sm:px-6 sm:py-28 lg:px-8">
+          <div className="max-w-3xl">
+            <motion.div variants={containerVariants} initial="hidden" animate="visible">
               <motion.span
                 variants={itemVariants}
-                className="inline-flex items-center gap-2 text-sm font-medium text-primary mb-4 tracking-wider uppercase bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20"
+                className="mb-5 inline-flex items-center gap-2 border-l-2 border-primary bg-hero-scrim/50 px-3 py-1.5 text-sm font-semibold uppercase tracking-wider text-primary backdrop-blur-sm"
               >
                 <Sparkles size={14} className="animate-pulse" />
                 Digital Growth Expert
               </motion.span>
-              <motion.h1
-                variants={itemVariants}
-                className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
-              >
+              <motion.h1 variants={itemVariants} className="mb-6 max-w-3xl font-heading text-4xl font-bold leading-tight text-hero-foreground sm:text-5xl lg:text-6xl">
                 Helping Businesses Scale with{" "}
                 <span className="text-shimmer">YouTube Growth</span>, Shopify Development &amp; High-Converting Websites.
               </motion.h1>
-              <motion.p
-                variants={itemVariants}
-                className="text-lg text-muted-foreground mb-8 max-w-xl"
-              >
+              <motion.p variants={itemVariants} className="mb-8 max-w-xl text-lg leading-relaxed text-hero-foreground/90 sm:text-xl">
                 I help entrepreneurs and businesses build powerful online presences that drive real revenue through proven digital strategies.
               </motion.p>
               <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
                 <Link to="/contact">
                   <Button variant="hero" size="lg" className="group animate-glow-pulse relative overflow-hidden">
                     <span className="relative z-10 flex items-center gap-2">
-                      Hire Me <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                      Hire Me <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                     </span>
                   </Button>
                 </Link>
                 <Link to="/portfolio">
-                  <Button variant="heroOutline" size="lg" className="group">
-                    View My Work <ArrowRight size={16} className="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                  <Button variant="heroOutline" size="lg" className="group bg-hero-scrim/50 backdrop-blur-sm">
+                    View My Work <ArrowRight size={16} className="opacity-0 -ml-2 transition-all group-hover:ml-0 group-hover:opacity-100" />
                   </Button>
                 </Link>
               </motion.div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.85, rotate: -3 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] as const }}
-              className="hidden lg:flex justify-center"
-            >
-              <motion.div 
-                className="relative"
-                style={{
-                  x: mouse.normalizedX * -15,
-                  y: mouse.normalizedY * -15,
-                }}
-              >
-                <div className="absolute -inset-8 rounded-3xl bg-primary/10 blur-3xl animate-glow-pulse blob" />
-                <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-primary/30 via-transparent to-accent/30 animate-spin-slow" style={{ animationDuration: '12s' }} />
-                <img
-                  src={isrealPortrait}
-                  alt="Isreal Levis - Digital Growth Expert"
-                  className="relative rounded-2xl w-full max-w-md object-cover shadow-2xl border-2 border-primary/20"
-                  width={400}
-                  height={500}
-                  loading="eager"
-                  decoding="async"
-                  fetchPriority="high"
-                />
-                {/* Floating badge */}
-                <motion.div
-                  initial={{ opacity: 0, x: 30, scale: 0.8 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  transition={{ delay: 1.2, duration: 0.6, type: "spring" }}
-                  className="absolute -right-6 top-8 bg-card border border-border rounded-xl px-4 py-2.5 shadow-xl floating"
-                >
-                  <div className="flex items-center gap-2">
-                    <Zap size={14} className="text-primary animate-pulse" />
-                    <span className="text-xs font-semibold">YouTube & Website Expert</span>
-                  </div>
-                </motion.div>
-                {/* Second floating badge */}
-                <motion.div
-                  initial={{ opacity: 0, x: -30, scale: 0.8 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  transition={{ delay: 1.5, duration: 0.6, type: "spring" }}
-                  className="absolute -left-6 bottom-12 bg-card border border-border rounded-xl px-4 py-2.5 shadow-xl"
-                  style={{ animation: "float 6s ease-in-out 1s infinite" }}
-                >
-                  <div className="flex items-center gap-2">
-                    <Star size={14} className="text-primary fill-primary" />
-                    <span className="text-xs font-semibold">150+ Projects Done</span>
-                  </div>
-                </motion.div>
+              <motion.div variants={itemVariants} className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-hero-foreground/30 pt-5 text-sm text-hero-foreground/85">
+                <span className="inline-flex items-center gap-2"><CheckCircle2 size={16} className="text-primary" /> 150+ projects delivered</span>
+                <span className="inline-flex items-center gap-2"><Star size={16} className="fill-primary text-primary" /> 50+ happy clients</span>
               </motion.div>
             </motion.div>
           </div>
         </motion.div>
 
         {/* Trusted by marquee */}
-        <div className="absolute bottom-0 left-0 right-0 border-t border-border/50 bg-background/50 backdrop-blur-sm">
+        <div className="absolute bottom-0 left-0 right-0 z-10 border-t border-border/50 bg-background/75 backdrop-blur-sm">
           <div className="overflow-hidden py-4">
             <div className="flex whitespace-nowrap" style={{ animation: "marquee 25s linear infinite" }}>
               {[...trustedBy, ...trustedBy].map((item, i) => (

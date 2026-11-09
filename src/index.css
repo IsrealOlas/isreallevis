@@ -8,6 +8,8 @@
   :root {
     --background: 0 0% 97%;
     --foreground: 0 0% 8%;
+    --hero-foreground: 0 0% 100%;
+    --hero-scrim: 0 0% 4%;
 
     --card: 0 0% 100%;
     --card-foreground: 0 0% 8%;
@@ -47,6 +49,8 @@
   .dark {
     --background: 0 0% 5%;
     --foreground: 0 0% 95%;
+    --hero-foreground: 0 0% 100%;
+    --hero-scrim: 0 0% 4%;
 
     --card: 0 0% 9%;
     --card-foreground: 0 0% 95%;

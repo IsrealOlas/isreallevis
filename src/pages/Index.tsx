@@ -129,8 +129,8 @@ const Index = () => {
           decoding="async"
           fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/65 to-background/95 md:bg-gradient-to-r md:from-background md:via-background/85 md:to-background/10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-background/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-hero-scrim/60 via-hero-scrim/45 to-hero-scrim/80 md:bg-gradient-to-r md:from-hero-scrim/95 md:via-hero-scrim/75 md:to-hero-scrim/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-hero-scrim/55 via-transparent to-hero-scrim/20" />
         <div className="absolute inset-0 hidden bg-[radial-gradient(ellipse_at_78%_45%,hsl(var(--primary)/0.10),transparent_45%)] md:block" />
 
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="container relative z-10 mx-auto px-4 py-24 sm:px-6 sm:py-28 lg:px-8">
@@ -138,16 +138,16 @@ const Index = () => {
             <motion.div variants={containerVariants} initial="hidden" animate="visible">
               <motion.span
                 variants={itemVariants}
-                className="mb-5 inline-flex items-center gap-2 border-l-2 border-primary bg-background/60 px-3 py-1.5 text-sm font-semibold uppercase tracking-wider text-primary backdrop-blur-sm"
+                className="mb-5 inline-flex items-center gap-2 border-l-2 border-primary bg-hero-scrim/50 px-3 py-1.5 text-sm font-semibold uppercase tracking-wider text-primary backdrop-blur-sm"
               >
                 <Sparkles size={14} className="animate-pulse" />
                 Digital Growth Expert
               </motion.span>
-              <motion.h1 variants={itemVariants} className="mb-6 max-w-3xl font-heading text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+              <motion.h1 variants={itemVariants} className="mb-6 max-w-3xl font-heading text-4xl font-bold leading-tight text-hero-foreground sm:text-5xl lg:text-6xl">
                 Helping Businesses Scale with{" "}
                 <span className="text-shimmer">YouTube Growth</span>, Shopify Development &amp; High-Converting Websites.
               </motion.h1>
-              <motion.p variants={itemVariants} className="mb-8 max-w-xl text-lg leading-relaxed text-foreground/85 sm:text-xl">
+              <motion.p variants={itemVariants} className="mb-8 max-w-xl text-lg leading-relaxed text-hero-foreground/90 sm:text-xl">
                 I help entrepreneurs and businesses build powerful online presences that drive real revenue through proven digital strategies.
               </motion.p>
               <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
@@ -159,12 +159,12 @@ const Index = () => {
                   </Button>
                 </Link>
                 <Link to="/portfolio">
-                  <Button variant="heroOutline" size="lg" className="group bg-background/50 backdrop-blur-sm">
+                  <Button variant="heroOutline" size="lg" className="group bg-hero-scrim/50 backdrop-blur-sm">
                     View My Work <ArrowRight size={16} className="opacity-0 -ml-2 transition-all group-hover:ml-0 group-hover:opacity-100" />
                   </Button>
                 </Link>
               </motion.div>
-              <motion.div variants={itemVariants} className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-border/70 pt-5 text-sm text-foreground/80">
+              <motion.div variants={itemVariants} className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-hero-foreground/30 pt-5 text-sm text-hero-foreground/85">
                 <span className="inline-flex items-center gap-2"><CheckCircle2 size={16} className="text-primary" /> 150+ projects delivered</span>
                 <span className="inline-flex items-center gap-2"><Star size={16} className="fill-primary text-primary" /> 50+ happy clients</span>
               </motion.div>

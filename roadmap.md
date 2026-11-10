@@ -6,3 +6,4 @@
 - [ ] Complete a real test-card checkout and server confirmation; requires admin login and a test transaction.
 - [ ] Build a WhatsApp lead assistant with approved pricing, booking, and owner handoff; awaiting pricing clarification and WhatsApp integration choice.
 - [x] Adapt the homepage hero to the newly uploaded reference image while retaining the existing content and interface; desktop and mobile previews verified.
+- [ ] Tighten the homepage hero layout, improve dark-theme contrast, and confirm desktop/mobile CTA visibility.

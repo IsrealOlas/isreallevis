@@ -118,41 +118,28 @@ const Index = () => {
   return (
     <main>
       {/* Hero */}
-      <section ref={heroRef} className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-background pt-16">
-        <img
-          src={growthHero}
-          alt="Isreal Levis in a digital workspace with analytics and creative tools"
-          className="absolute inset-0 h-full w-full object-cover object-[72%_center]"
-          width={1920}
-          height={1080}
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-hero-scrim/60 via-hero-scrim/45 to-hero-scrim/80 md:bg-gradient-to-r md:from-hero-scrim/95 md:via-hero-scrim/75 md:to-hero-scrim/15" />
-        <div className="absolute inset-0 bg-gradient-to-t from-hero-scrim/55 via-transparent to-hero-scrim/20" />
-        <div className="absolute inset-0 hidden bg-[radial-gradient(ellipse_at_78%_45%,hsl(var(--primary)/0.10),transparent_45%)] md:block" />
-
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="container relative z-10 mx-auto px-4 py-24 sm:px-6 sm:py-28 lg:px-8">
-          <div className="max-w-3xl">
+      <section ref={heroRef} className="relative isolate overflow-hidden bg-background pt-20 md:min-h-[calc(100svh-4rem)] md:pt-16">
+        <div className="hero-radial-glow absolute inset-0" />
+        <div className="container relative z-10 mx-auto grid items-center gap-5 px-4 pb-6 sm:px-6 md:min-h-[calc(100svh-5rem)] md:grid-cols-[1.05fr_0.95fr] md:gap-8 md:pb-8 lg:px-8 lg:gap-12">
+          <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative z-10 mx-auto w-full max-w-2xl md:py-6">
             <motion.div variants={containerVariants} initial="hidden" animate="visible">
               <motion.span
                 variants={itemVariants}
-                className="mb-5 inline-flex items-center gap-2 border-l-2 border-primary bg-hero-scrim/50 px-3 py-1.5 text-sm font-semibold uppercase tracking-wider text-primary backdrop-blur-sm"
+                className="mb-4 inline-flex items-center gap-2 border-l-2 border-primary bg-hero-scrim/50 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary backdrop-blur-sm sm:text-sm"
               >
                 <Sparkles size={14} className="animate-pulse" />
                 Digital Growth Expert
               </motion.span>
-              <motion.h1 variants={itemVariants} className="mb-6 max-w-3xl font-heading text-4xl font-bold leading-tight text-hero-foreground sm:text-5xl lg:text-6xl">
+              <motion.h1 variants={itemVariants} className="mb-4 max-w-3xl font-heading text-[2rem] font-bold leading-[1.15] text-hero-foreground sm:text-4xl lg:text-[3.2rem]">
                 Helping Businesses Scale with{" "}
                 <span className="text-shimmer">YouTube Growth</span>, Shopify Development &amp; High-Converting Websites.
               </motion.h1>
-              <motion.p variants={itemVariants} className="mb-8 max-w-xl text-lg leading-relaxed text-hero-foreground/90 sm:text-xl">
+              <motion.p variants={itemVariants} className="mb-5 max-w-xl text-base leading-relaxed text-hero-foreground/90 sm:text-lg">
                 I help entrepreneurs and businesses build powerful online presences that drive real revenue through proven digital strategies.
               </motion.p>
-              <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
+              <motion.div variants={itemVariants} className="flex flex-wrap gap-3">
                 <Link to="/contact">
-                  <Button variant="hero" size="lg" className="group animate-glow-pulse relative overflow-hidden">
+                  <Button variant="hero" size="lg" className="hero-cta-glow group relative overflow-hidden">
                     <span className="relative z-10 flex items-center gap-2">
                       Hire Me <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                     </span>
@@ -164,20 +151,45 @@ const Index = () => {
                   </Button>
                 </Link>
               </motion.div>
-              <motion.div variants={itemVariants} className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-hero-foreground/30 pt-5 text-sm text-hero-foreground/85">
+              <motion.div variants={itemVariants} className="mt-5 flex flex-wrap gap-x-6 gap-y-2 border-t border-hero-foreground/30 pt-3 text-xs text-hero-foreground/90 sm:text-sm">
                 <span className="inline-flex items-center gap-2"><CheckCircle2 size={16} className="text-primary" /> 150+ projects delivered</span>
                 <span className="inline-flex items-center gap-2"><Star size={16} className="fill-primary text-primary" /> 50+ happy clients</span>
               </motion.div>
             </motion.div>
-          </div>
-        </motion.div>
-
-        {/* Trusted by marquee */}
-        <div className="absolute bottom-0 left-0 right-0 z-10 border-t border-border/50 bg-background/75 backdrop-blur-sm">
-          <div className="overflow-hidden py-4">
+            <img
+              src={growthHero}
+              alt="Isreal Levis in a digital workspace with analytics and creative tools"
+              className="hero-photo-shadow mt-5 block aspect-[16/8] w-full rounded-md object-cover object-[72%_center] md:hidden"
+              width={1920}
+              height={1080}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="hero-photo-shadow relative hidden w-full overflow-hidden rounded-md md:block md:aspect-[4/5] md:max-h-[min(68vh,600px)]"
+          >
+            <img
+              src={growthHero}
+              alt="Isreal Levis in a digital workspace with analytics and creative tools"
+              className="h-full w-full object-cover object-[72%_center]"
+              width={1920}
+              height={1080}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+            />
+          </motion.div>
+        </div>
+        <div className="relative z-10 border-t border-border/50 bg-background/75 backdrop-blur-sm">
+          <div className="overflow-hidden py-2.5 sm:py-3">
             <div className="flex whitespace-nowrap" style={{ animation: "marquee 25s linear infinite" }}>
               {[...trustedBy, ...trustedBy].map((item, i) => (
-                <span key={i} className="mx-8 text-sm text-muted-foreground font-medium flex items-center gap-2">
+                <span key={i} className="mx-6 flex items-center gap-2 text-xs font-medium text-muted-foreground sm:mx-8 sm:text-sm">
                   <CheckCircle2 size={14} className="text-primary/60" />
                   {item}
                 </span>

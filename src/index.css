@@ -17,7 +17,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 8%;
 
-    --primary: 48 100% 45%;
+    --primary: 43.5 100% 50%;
     --primary-foreground: 0 0% 5%;
 
     --secondary: 0 0% 92%;
@@ -26,7 +26,7 @@
     --muted: 0 0% 92%;
     --muted-foreground: 0 0% 40%;
 
-    --accent: 0 85% 50%;
+    --accent: 16.5 100% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 85% 50%;
@@ -34,7 +34,7 @@
 
     --border: 0 0% 88%;
     --input: 0 0% 88%;
-    --ring: 48 100% 45%;
+    --ring: 43.5 100% 50%;
 
     --radius: 0.75rem;
 
@@ -58,7 +58,7 @@
     --popover: 222 35% 14%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 48 100% 50%;
+    --primary: 43.5 100% 50%;
     --primary-foreground: 0 0% 5%;
 
     --secondary: 222 28% 19%;
@@ -67,7 +67,7 @@
     --muted: 222 28% 19%;
     --muted-foreground: 215 20% 70%;
 
-    --accent: 14 100% 55%;
+    --accent: 16.5 100% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 85% 50%;
@@ -75,7 +75,7 @@
 
     --border: 222 22% 25%;
     --input: 222 22% 25%;
-    --ring: 48 100% 50%;
+    --ring: 43.5 100% 50%;
 
     --hero-gradient: linear-gradient(135deg, hsl(48 100% 50% / 0.06), hsl(0 85% 50% / 0.03));
     --card-gradient: linear-gradient(180deg, hsl(222 35% 15%), hsl(222 47% 11%));

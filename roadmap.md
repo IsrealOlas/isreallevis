@@ -7,3 +7,4 @@
 - [ ] Build a WhatsApp lead assistant with approved pricing, booking, and owner handoff; awaiting pricing clarification and WhatsApp integration choice.
 - [x] Adapt the homepage hero to the newly uploaded reference image while retaining the existing content and interface; desktop and mobile previews verified.
 - [ ] Tighten the homepage hero layout, improve dark-theme contrast, and confirm desktop/mobile CTA visibility.
+- [ ] Restore only the homepage hero to match both new reference images and preserve the original site style and interactions.
